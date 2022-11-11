@@ -1,61 +1,148 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+## Setup for development
+- `git clone git@gitlab.com:confidence-group/cghris-new.git`
+- `cd cghris-new`
+- To create new git local branch run - `git checkout -b your_name/master` - "your_name/master" will be the git branch name
+- `git push --set-upstream origin your_name/master`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- `composer install`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Make sure .env file, otherwise copy .env.example
+- `php artisan key:generate`
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- `npm install`
+- `cd frontend`
+- `npm install`
+- `cd ..`
+- `npm run dev`
 
-## Learning Laravel
+- `php artisan jwt:secret`
+- `php artisan storage:link`
+- `php artisan migrate:fresh --seed`
+- `php artisan serve`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Watching for changes: Running `npm run dev` every time you make changes to file is inefficient. Hopefully there's command so your changes can be watched and get reflected accordingly. It's `npm run watch`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Common Artisan Commands
+- Create Controller with api Resource - `php artisan make:controller API/Employees/EmployeeController -r --api`
 
-## Laravel Sponsors
+- Make Model with Migration file - `php artisan make:model Employees/FamilyDetail -m`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- Fresh migrate with database seeders - `php artisan migrate:fresh --seed`
 
-### Premium Partners
+- Inverse seed generator (iSeed) - `php artisan iseed my_table,another_table`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+- Creating Jobs (Queue Schedule) - `php artisan make:job Attendance/EmpWiseAttnPolicyJob`
+- Make mail inside app/Mail - `php artisan make:mail Attendance/EmpWiseAttnPolicyMail`
+- Make import - `php artisan make:import Leave/MultiLayerApprovalImport`
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Git
 
-## Code of Conduct
+## Git Fetch and Merge Instructions
+- `git fetch`
+- `git merge origin/branch_name`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Git Pull Instructions
+- `git pull origin master` Or `git pull origin remote_branch_name`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+## Git Commit / Push Instructions
+- `git status` Please make sure - you are not committing unnecessary files
+- `git add .`
+- `git commit -m "Write relevant message about work"`
+- `git push` Or `git push origin branch_name`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# JWT Issue Resolve
+- `php artisan key:generate`
+- `php artisan jwt:secret`
+- `php artisan cache:clear`
+- `php artisan config:clear`
+
+
+# Template Info
+- We are using - Vuexy Admin Template
+- Demo URL - https://pixinvent.com/demo/vuexy-vuejs-laravel-admin-template/demo-1
+- Documentation URL - https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/
+- Frequently usage - https://bootstrap-vue.org/
+
+
+# Others
+- `php artisan optimize:clear`
+
+## keyConstraints Instructions
+- `php artisan make:migration keyConstraints`
+
+
+## Xampp DNS Setup
+- go to `C:\xampp\apache\conf\extra` and add the following lines here on 'httpd-vhosts.conf'
+
+```
+<VirtualHost *:80>
+ ServerName www.cghris-new.test
+ ServerAlias cghris-new.test
+ DocumentRoot C:/xampp/htdocs/cghris-new/public
+</VirtualHost>
+```
+
+- Windows start menu >> Type/ Search for "Notepad" >> Right click >> Run as Administrator
+- File >> Open >> and go to `C:\Windows\System32\drivers\etc`
+- Show file type - All Files (*.*)
+- Open "hosts"
+- Add the line, save and close Notepad - `127.0.0.5      cghris-new.test`
+
+- Restart Xampp
+
+## Module Wise Migration Create
+
+-`php artisan make:migration create_erec_employee_requisitions_table --path=database/migrations/Erecruitments`
+Or
+
+-`php artisan migrate --path=database/migrations/Erecruitments`
+
+## Specific Migration run
+-`php artisan migrate --path=/database/migrations/2021_04_22_130332_key_constraints.php`
+
+## Run Specific - Artisan Console Commands
+-`php artisan accessDevicePunch:everyTenMinutes`
+
+
+## Drop All Tables & Migrate
+-------------------------
+-`php artisan migrate:fresh`
+
+## Drop All Tables,Migrate & seed database
+---------------------------------------
+-`php artisan migrate:fresh --seed`
+
+## Module Wise Drop All Tables,Migrate & seed database
+---------------------------------------
+-`php artisan migrate --path=database/migrations/Erecruitments --seed` It does not work properly - it run all Module Seeder files :(
+
+## Module Wise Create table seeder
+-------------------
+-`php artisan make:seeder table_sidder_name --path=database/migrations/Erecruitments`
+
+## Seed specific table seeder
+--------------------------
+
+-`php artisan db:seed --class=UnitTableSeeder`
+Or
+-`php artisan db:seed --class="Database\\Seeders\\Erecruitments\\SeederName"`
+
+## Table PARTITION on existing table
+--------------------------
+-`y2025m01 is last partition`
+-`ALTER TABLE leav_daywise_leave_takens REORGANIZE PARTITION y2025m01 INTO ( 
+PARTITION y2025m01 VALUES LESS THAN ('2025-02-01'),   
+PARTITION y2025m02 VALUES LESS THAN MAXVALUE);`
+
+## IF composer is not work
+-`copy the content of package-lock-backup.json file to package-lock.json`
+-`again run npm install`
+
+## Remote MySQL Connection, Firewal
+- The MySQL configuration file should be in .\xampp\mysql\bin\my.ini. You need to find the bind-address parameter and change it to 0.0.0.0
+- Firewall - Inbound Rules - Allow connections from other host by allowing TCP, Local Port e.g. 80, 443, 3306, 21
